@@ -101,9 +101,25 @@ Os elementos dos tipos definidos pela programadora (**classes**) são **objetos*
 - Atributos: saldo, número
 - Métodos (operações): crédito, débito
 
-**Estado:** o estado atual da objeto consiste dos valores atuais dos seus atributos. No caso do objeto *conta bancária*, um exemplo de estado seria: {saldo = 875,32, número = 21.342-7}.
+#### Estado 
+- O estado atual da objeto consiste dos valores atuais dos seus atributos
+- Exemplo: {saldo = 875,32, número = 21.342-7}.
 
-**Obs.:** o estado é **encapsulado**, só pode ser modificado pelos métodos do próprio objeto!
+**Obs. 1:** o estado é **encapsulado**, só pode ser modificado pelos métodos do próprio objeto!
+
+#### Criação de objetos
+Um objeto é criado através do operador **new**: new NomeDaClasse(). Assim:
+- (1) O computador cria um objeto da classe NomeDaClasse e armazena na sua memória
+- (2) Inicializa os atributos do objeto usando o construtor da classe (nesse exemplo, não tem parâmetros)
+- (3) Associa uma referência ao objeto
+- (4) Devolve a referência como resultado da avaliação
+
+**Obs. 2:** a ordem de execução do **new** é normalmente 1-2-3-4; mas pode ser 1-3-4-2 ou 1-3-2-4.
+
+#### Remoção de objetos
+- Não existe mecanismo de remoção explícita de objetos da memória em Java
+- O **Garbage Collector** de Java elimina um objeto da memória quando este não é mais referenciado
+- O método **finalize** é um método da classe Object que é chamado pelo garbage collector antes de um objeto ser removido da memória (a programadora pode sobrescrevê-lo, e aí uma última ação é feita sobre o objeto antes dele morrer) 
 
 ### Tipos
 
@@ -124,3 +140,51 @@ Os elementos dos tipos definidos pela programadora (**classes**) são **objetos*
 - Têm tamanho variável, não podem ter tamanho fixo como primitivos
 - Precisam de muitos métodos (substring(), split()...)
 - São imutáveis por design, cada operação cria uma nova String (complicado de implementar como primitivo)
+
+### Referências para objetos
+Todo o acesso e manipulação de objetos é feito **indiretamente**, através de uma referência para o objeto — ela é a "identidade" do objeto.
+
+### Variáveis locais
+- São declaradas dentro de um método ou construtor
+- Só existem durante a execução do método ou construtor
+- Não são inicializadas automaticamente
+- Servem para armazenar resultados temporários que serão utilizados depois
+- Melhoram a legibilidade do método ou do construtor, quebrando uma expressão grande em expressões menores
+
+**Ex. 1:**
+{
+    ...
+    Endereco e;
+    e = new Endereco;
+    ...
+}
+
+**Ex. 2:**
+class Cliente {
+    private String;
+    private Endereco endereco;
+    
+    Cliente(String n) {
+        Endereco e;
+        e = new Endereco();
+        endereco = e;
+        nome = n;
+    }
+}
+
+No **Ex. 1**, temos a utilização de uma variável para armazenar a referência do objeto criado. Já no **Ex. 2**, temos a referência do objeto criado sendo armazenada numa variável local. Para que a referência não seja perdida ao final da execução do construtor, passamos ela para o atributo endereco, que é uma variável normal.
+
+### Aliasing
+É quando mais de uma variável armazena a referência para um dado objeto.
+
+Conta a = new Conta("12-7", 34.00);
+Conta b;
+b = a;
+b.creditar(100);
+console.println(a.getSaldo());
+
+Nesse caso, qualquer efeito via b é refletivo via a.
+
+### Passagem de parâmetro por valor
+- Quando uma variável é inserida como argumento de um método chamado, o valor armazenado por ela é copiado
+- Qualquer manipulação feita com essa cópia não repercute no objeto
