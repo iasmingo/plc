@@ -144,6 +144,36 @@ Um objeto é criado através do operador **new**: new NomeDaClasse(). Assim:
 ### Referências para objetos
 Todo o acesso e manipulação de objetos é feito **indiretamente**, através de uma referência para o objeto — ela é a "identidade" do objeto.
 
+Referências são valores!
+
+class Referencia {
+    void redefine(Conta a) {
+        Conta b = new Conta(“567-8”,55);
+        a.creditar(100);
+        a = b;
+        a.creditar(100);
+    }
+}
+
+Aqui, 'a' armazena a referência para um objeto e é passado como argumento. A partir de 'a', é possível mudar o estado desse objeto por meio do método creditar. Em seguida, é atribuída a 'a' a referência armazenada em 'b', portanto 'a' agora referencia outro objeto. Quando o método creditar é chamado novamente, ele repercute nesse outro objeto.
+
+#### This
+
+class Conta {
+    ...
+    void transferir(Conta c, double v) {
+        this.debitar(v);
+        c.creditar(v);
+    }
+}
+
+Na chamada x.transferir(y, v), a variável **this** conterá a referência armazenada em **x** e **c** conterá a referência armazenada em **y**.
+
+Além disso, a variável:
+- Só pode ser lida, não pode-se atribuir um valor a ela
+- Só pode aparecer dentro de métodos não estáticos (métodos estáticos = pertencem à classe, não a uma instância específica)
+- Contém a referência para o objeto no qual um dado método está sendo executado
+
 ### Variáveis locais
 - São declaradas dentro de um método ou construtor
 - Só existem durante a execução do método ou construtor
@@ -186,5 +216,5 @@ console.println(a.getSaldo());
 Nesse caso, qualquer efeito via b é refletivo via a.
 
 ### Passagem de parâmetro por valor
-- Quando uma variável é inserida como argumento de um método chamado, o valor armazenado por ela é copiado
+- Quando uma variável é inserida como argumento de um método chamado, o valor armazenado por ela é copiado, CASO A VARIÁVEL NÃO ARMAZENE UMA REFERÊNCIA
 - Qualquer manipulação feita com essa cópia não repercute no objeto
