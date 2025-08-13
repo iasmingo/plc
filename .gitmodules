@@ -1,0 +1,3 @@
+[submodule "plc_interpretador_haskell"]
+	path = plc_interpretador_haskell
+	url = https://github.com/maatheusfp/plc_interpretador_haskell
